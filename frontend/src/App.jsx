@@ -3,6 +3,27 @@ import profilePic from "./assets/profile.jpg";
 import Navbar from "./components/Navbar";
 import "./App.css";
 
+const projects = [
+  {
+    title: "Linux Automation & Monitoring",
+    description:
+      "Automated disk and memory monitoring system using Bash scripting. Configured Postfix to send real-time email alerts.",
+    image: "/src/assets/project1.jpg",
+    github: "https://github.com/lokeshsolanki12/Shell_Script_Projects.git",
+    demo: "#",
+    tech: ["Linux", "Bash", "Postfix", "Monitoring"],
+  },
+  {
+    title: "CI/CD Portfolio Deployment",
+    description:
+      "Full-stack portfolio deployment using GitHub Actions CI/CD pipeline with automated build and deployment.",
+    image: "/src/assets/project2.jpg",
+    github: "https://github.com/lokeshsolanki12/Portfolio.git",
+    demo: "#",
+    tech: ["React", "GitHub Actions", "CI/CD", "Deployment"],
+  },
+];
+
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 text-white pt-24">
@@ -31,11 +52,16 @@ function App() {
           </p>
 
           <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition"
-          >
-            View Projects
+              onClick={() => {
+                document.getElementById("projects").scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition"
+>
+              View Projects
           </motion.button>
         </motion.div>
 
@@ -57,41 +83,135 @@ function App() {
       {/* About */}
 <motion.section
   id="about"
-  className="py-20 px-6 max-w-5xl mx-auto text-center"
+  className="py-24 px-6 max-w-6xl mx-auto"
   initial={{ opacity: 0, y: 60 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true }}
   transition={{ duration: 0.7 }}
 >
-  <h2 className="text-3xl font-bold mb-6">About Me</h2>
-  <p className="text-gray-300">
-    I am a passionate DevOps and Cloud Engineer focused on building
-    scalable, automated, and reliable infrastructure solutions.
-  </p>
+  <div className="grid md:grid-cols-2 gap-12 items-center">
+    
+    {/* Left Side */}
+    <div>
+      <h2 className="text-4xl font-bold mb-6">
+        About <span className="text-cyan-400">Me</span>
+      </h2>
+
+      <p className="text-gray-300 mb-4 leading-relaxed">
+        I am a passionate <span className="text-cyan-400">DevOps & Cloud Engineer</span> 
+        with hands-on experience in Linux, automation, and CI/CD pipelines.
+      </p>
+
+      <p className="text-gray-400 mb-6 leading-relaxed">
+        I specialize in building scalable infrastructure, automating workflows using 
+        Bash scripting, and deploying applications using modern DevOps tools.
+      </p>
+
+      <div className="flex flex-wrap gap-3">
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Linux</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Bash</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">GitHub Actions</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">CI/CD</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">AWS</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Kubernates</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Docker</span>
+        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Git & GitHub</span>
+      </div>
+    </div>
+
+    {/* Right Side Cards */}
+    <div className="grid grid-cols-2 gap-6">
+      
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-cyan-400">10+</h3>
+        <p className="text-gray-300 text-sm">Projects</p>
+      </div>
+
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-cyan-400">DevOps</h3>
+        <p className="text-gray-300 text-sm">Focus Area</p>
+      </div>
+
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-cyan-400">Automation</h3>
+        <p className="text-gray-300 text-sm">Experience</p>
+      </div>
+
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center">
+        <h3 className="text-2xl font-bold text-cyan-400">Cloud</h3>
+        <p className="text-gray-300 text-sm">Learning</p>
+      </div>
+
+    </div>
+  </div>
 </motion.section>
 
       {/* Projects */}
 <motion.section
   id="projects"
-  className="py-20 px-6 max-w-6xl mx-auto text-center"
+  className="py-20 px-6 max-w-7xl mx-auto text-center"
   initial={{ opacity: 0, y: 60 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true }}
   transition={{ duration: 0.7 }}
 >
-  <h2 className="text-3xl font-bold mb-10">Projects</h2>
+  <h2 className="text-3xl font-bold mb-12">Projects</h2>
 
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 transition"
-  >
-    <h3 className="text-xl font-semibold mb-2">Home Automation</h3>
-    <p className="text-gray-300">
-      Arduino based smart home automation project.
-    </p>
-  </motion.div>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {projects.map((project, index) => (
+      <motion.div
+        key={index}
+        whileHover={{ scale: 1.05 }}
+        className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition"
+      >
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-48 object-cover"
+        />
+
+        <div className="p-5 text-left">
+          <h3 className="text-xl font-semibold mb-2">
+            {project.title}
+          </h3>
+
+          <p className="text-gray-300 mb-4">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tech.map((tech, i) => (
+              <span
+                key={i}
+                className="bg-cyan-500/20 text-cyan-400 px-3 py-1 text-xs rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex gap-4">
+            <a
+              href={project.github}
+              target="_blank"
+              className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm"
+            >
+              GitHub
+            </a>
+
+            <a
+              href={project.demo}
+              target="_blank"
+              className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-lg text-sm"
+            >
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
 </motion.section>
-
       {/* Contact */}
 <motion.section
   id="contact"
