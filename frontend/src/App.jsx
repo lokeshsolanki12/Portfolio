@@ -52,6 +52,8 @@ function App() {
         },
         body: JSON.stringify(formData),
       });
+      
+      const API_URL = "https://portfolio-jk6c.onrender.com/contact";
 
       const data = await response.json();
       alert(data.message);
