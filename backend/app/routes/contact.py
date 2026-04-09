@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from config.db import get_db_connection
+from app.config.db import get_db_connection
 import smtplib
 from email.mime.text import MIMEText
 
