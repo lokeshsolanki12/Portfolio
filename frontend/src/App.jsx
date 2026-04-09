@@ -1,42 +1,81 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import profilePic from "./assets/profile.jpg";
 import Navbar from "./components/Navbar";
 import "./App.css";
+import automationImg from "./assets/Automation.jpg";
+import portfolioImg from "./assets/portfolio.jpg";
+import Admin from "./components/Admin";
 
 const projects = [
   {
     title: "Linux Automation & Monitoring",
     description:
-      "Automated disk and memory monitoring system using Bash scripting. Configured Postfix to send real-time email alerts.",
-    image: "/src/assets/project1.jpg",
-    github: "https://github.com/lokeshsolanki12/Shell_Script_Projects.git",
+      "Automated disk and memory monitoring system using Bash scripting with email alerts using Postfix.",
+    image: automationImg,
+    github: "https://github.com/your-username/linux-monitoring",
     demo: "#",
-    tech: ["Linux", "Bash", "Postfix", "Monitoring"],
+    tech: ["Linux", "Bash", "Postfix"],
   },
   {
     title: "CI/CD Portfolio Deployment",
     description:
-      "Full-stack portfolio deployment using GitHub Actions CI/CD pipeline with automated build and deployment.",
-    image: "/src/assets/project2.jpg",
-    github: "https://github.com/lokeshsolanki12/Portfolio.git",
+      "Full-stack portfolio deployment using GitHub Actions CI/CD pipeline.",
+    image: portfolioImg,
+    github: "https://github.com/your-username/portfolio-cicd",
     demo: "#",
-    tech: ["React", "GitHub Actions", "CI/CD", "Deployment"],
+    tech: ["React", "GitHub Actions", "CI/CD"],
   },
 ];
 
 function App() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.placeholder.toLowerCase().replace("your ", "")]:
+        e.target.value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      alert(data.message);
+
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      alert("Failed to send message");
+      console.error(error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 text-white pt-24">
-      
-      {/* Navbar */}
       <Navbar />
 
       {/* Hero Section */}
       <section
-        id="home"
-        className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center gap-10 px-6 max-w-7xl mx-auto"
-      >
-        {/* Left Content */}
+          id="home"
+          className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center gap-16 px-10 md:px-20 -mt-20"
+          >
         <motion.div
           className="text-center md:text-left"
           initial={{ opacity: 0, x: -60 }}
@@ -52,20 +91,19 @@ function App() {
           </p>
 
           <motion.button
-              onClick={() => {
-                document.getElementById("projects").scrollIntoView({
-                  behavior: "smooth",
-                });
-              }}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition"
->
-              View Projects
+            onClick={() => {
+              document.getElementById("projects").scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition"
+          >
+            View Projects
           </motion.button>
         </motion.div>
 
-        {/* Right Image */}
         <motion.div
           className="flex justify-center"
           initial={{ opacity: 0, x: 60 }}
@@ -75,13 +113,13 @@ function App() {
           <img
             src={profilePic}
             alt="Lokesh Solanki"
-            className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-cyan-400 shadow-lg"
+            className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-full border-4 border-cyan-400 shadow-lg"
           />
         </motion.div>
       </section>
 
       {/* About */}
-<motion.section
+      <motion.section
   id="about"
   className="py-24 px-6 max-w-6xl mx-auto"
   initial={{ opacity: 0, y: 60 }}
@@ -113,9 +151,6 @@ function App() {
         <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">GitHub Actions</span>
         <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">CI/CD</span>
         <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">AWS</span>
-        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Kubernates</span>
-        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Docker</span>
-        <span className="bg-white/10 px-4 py-2 rounded-lg text-sm">Git & GitHub</span>
       </div>
     </div>
 
@@ -147,108 +182,125 @@ function App() {
 </motion.section>
 
       {/* Projects */}
-<motion.section
-  id="projects"
-  className="py-20 px-6 max-w-7xl mx-auto text-center"
-  initial={{ opacity: 0, y: 60 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.7 }}
->
-  <h2 className="text-3xl font-bold mb-12">Projects</h2>
-
-  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {projects.map((project, index) => (
-      <motion.div
-        key={index}
-        whileHover={{ scale: 1.05 }}
-        className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition"
+      <motion.section
+        id="projects"
+        className="py-20 px-6 max-w-7xl mx-auto text-center"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
       >
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-48 object-cover"
-        />
+        <h2 className="text-3xl font-bold mb-12">Projects</h2>
 
-        <div className="p-5 text-left">
-          <h3 className="text-xl font-semibold mb-2">
-            {project.title}
-          </h3>
-
-          <p className="text-gray-300 mb-4">
-            {project.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.tech.map((tech, i) => (
-              <span
-                key={i}
-                className="bg-cyan-500/20 text-cyan-400 px-3 py-1 text-xs rounded-full"
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition"
+            >
+              <div
+                className="h-48 w-full bg-cover bg-center relative"
+                style={{
+                  backgroundImage: `url(${project.image})`,
+                }}
               >
-                {tech}
-              </span>
-            ))}
-          </div>
+                <div className="absolute inset-0 bg-black/40"></div>
+              </div>
 
-          <div className="flex gap-4">
-            <a
-              href={project.github}
-              target="_blank"
-              className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm"
-            >
-              GitHub
-            </a>
+              <div className="p-5 text-left">
+                <h3 className="text-xl font-semibold mb-2">
+                  {project.title}
+                </h3>
 
-            <a
-              href={project.demo}
-              target="_blank"
-              className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-lg text-sm"
-            >
-              Live Demo
-            </a>
-          </div>
+                <p className="text-gray-300 mb-4">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="bg-cyan-500/20 text-cyan-400 px-3 py-1 text-xs rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-4">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm"
+                  >
+                    GitHub
+                  </a>
+
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-lg text-sm"
+                  >
+                    Live Demo
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
-    ))}
-  </div>
-</motion.section>
+      </motion.section>
+
       {/* Contact */}
-<motion.section
-  id="contact"
-  className="py-20 px-6 max-w-3xl mx-auto text-center"
-  initial={{ opacity: 0, y: 60 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.7 }}
->
-  <h2 className="text-3xl font-bold mb-8">Contact Me</h2>
+      <motion.section
+        id="contact"
+        className="py-20 px-6 max-w-3xl mx-auto text-center"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
+        <h2 className="text-3xl font-bold mb-8">Contact Me</h2>
 
-  <div className="flex flex-col gap-4">
-    <input
-      className="p-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none"
-      placeholder="Your Name"
-    />
-    <input
-      className="p-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none"
-      placeholder="Your Email"
-    />
-    <textarea
-      className="p-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none"
-      placeholder="Message"
-      rows="4"
-    ></textarea>
+        <div className="flex flex-col gap-4">
+          <input
+            value={formData.name}
+            onChange={handleChange}
+            className="p-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none"
+            placeholder="Your Name"
+          />
 
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition"
-    >
-      Send
-    </motion.button>
-  </div>
-</motion.section>
+          <input
+            value={formData.email}
+            onChange={handleChange}
+            className="p-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none"
+            placeholder="Your Email"
+          />
+
+          <textarea
+            value={formData.message}
+            onChange={handleChange}
+            className="p-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none"
+            placeholder="Message"
+            rows="4"
+          ></textarea>
+
+          <motion.button
+            onClick={handleSubmit}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition"
+          >
+            Send
+          </motion.button>
+        </div>
+      </motion.section>
     </div>
   );
 }
+{/* Admin Section */}
+<section id="admin">
+  <Admin />
+</section>
 
 export default App;
