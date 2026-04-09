@@ -7,5 +7,9 @@ CORS(app)
 
 app.register_blueprint(contact_bp)
 
+@app.route("/")
+def home():
+    return "Backend is running 🚀"
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
