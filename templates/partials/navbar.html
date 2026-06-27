@@ -1,0 +1,19 @@
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="{{ url_for('home') }}" class="nav-logo">LOKESH SOLANKI</a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger"></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ url_for('home') }}" class="nav-link{% if active_page == 'home' %} active{% endif %}">Home</a></li>
+            <li><a href="{{ url_for('about') }}" class="nav-link{% if active_page == 'about' %} active{% endif %}">About</a></li>
+            <li><a href="{{ url_for('skills') }}" class="nav-link{% if active_page == 'skills' %} active{% endif %}">Skills</a></li>
+            <li><a href="{{ url_for('experience') }}" class="nav-link{% if active_page == 'experience' %} active{% endif %}">Experience</a></li>
+            <li><a href="{{ url_for('projects') }}" class="nav-link{% if active_page == 'projects' %} active{% endif %}">Projects</a></li>
+            <li><a href="{{ url_for('certificates') }}" class="nav-link{% if active_page == 'certificates' %} active{% endif %}">Certificates</a></li>
+            <li><a href="{{ url_for('contact') }}" class="nav-link{% if active_page == 'contact' %} active{% endif %}">Contact</a></li>
+        </ul>
+    </div>
+</nav>

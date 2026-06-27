@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header reveal">
+    <div class="container">
+        <p class="section-eyebrow">Let's connect</p>
+        <h1 class="page-title">Contact</h1>
+        <p class="page-subtitle">Have a question or opportunity? Send me a message.</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container contact-grid">
+        <div class="contact-info reveal">
+            <h2 class="contact-info-title">Reach Out</h2>
+            <ul class="contact-info-list">
+                <li>
+                    <span class="contact-info-icon" aria-hidden="true">&#128231;</span>
+                    <a href="mailto:lokesh.solanki7014@gmail.com">lokesh.solanki7014@gmail.com</a>
+                </li>
+                <li>
+                    <span class="contact-info-icon" aria-hidden="true">&#128222;</span>
+                    <a href="tel:+916377824849">+91 6377824849</a>
+                </li>
+                <li>
+                    <span class="contact-info-icon" aria-hidden="true">&#128279;</span>
+                    <a href="https://linkedin.com/in/lokeshsolanki12" target="_blank" rel="noopener noreferrer">linkedin.com/in/lokeshsolanki12</a>
+                </li>
+                <li>
+                    <span class="contact-info-icon" aria-hidden="true">&#128025;</span>
+                    <a href="https://github.com/lokeshsolanki12" target="_blank" rel="noopener noreferrer">github.com/lokeshsolanki12</a>
+                </li>
+            </ul>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="form-group">
+                <label for="name">Full Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required maxlength="100" autocomplete="name" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required maxlength="150" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject <span class="required">*</span></label>
+                <input type="text" id="subject" name="subject" required maxlength="200" placeholder="What's this about?">
+            </div>
+            <div class="form-group">
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea id="message" name="message" required maxlength="5000" rows="6" placeholder="Your message..."></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+            </div>
+            <div class="form-feedback" id="formFeedback" role="alert" aria-live="polite"></div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.body.dataset.page = 'contact';
+</script>
+{% endblock %}
