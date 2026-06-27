@@ -11,7 +11,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-import mysql.connector
+import psycopg2
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
@@ -47,13 +47,13 @@ EMAIL_PATTERN = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
 
 
 def get_db_connection():
-    """Create and return a MySQL database connection."""
-    return mysql.connector.connect(
+    """Create and return a PostgreSQL database connection."""
+    return psycopg2.connect(
         host=os.getenv("DB_HOST", "localhost"),
-        user=os.getenv("DB_USER", "root"),
+        user=os.getenv("DB_USER", "postgres"),
         password=os.getenv("DB_PASSWORD", ""),
-        database=os.getenv("DB_NAME", "portfolio_db"),
-        port=int(os.getenv("DB_PORT", 3306)),
+        dbname=os.getenv("DB_NAME", "portfolio_db"),
+        port=int(os.getenv("DB_PORT", 5432)),
     )
 
 
@@ -202,7 +202,7 @@ def submit_contact():
         conn.commit()
         cursor.close()
         conn.close()
-    except mysql.connector.Error as exc:
+    except psycopg2.Error as exc:
         app.logger.error("Database error: %s", exc)
         return (
             jsonify(
